@@ -1,0 +1,17 @@
+/* cell private styles. */
+/* */
+:host {
+  border: 5px solid #2c3e50;
+  border-radius: 5px;
+  font-family: Helvetica;
+  font-weight: bold;
+  font-size: 4em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:host:hover {
+  background-color: #cfd8dc;
+  cursor: pointer;
+}
