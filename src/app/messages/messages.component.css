@@ -1,0 +1,29 @@
+.messages {
+  display: flex;
+  margin: 0 auto;
+  /* Shorthand for flex-direction and flex-wrap */
+  flex-flow: column wrap;
+  font-family: Helvetica, Arial, sans-serif;
+  /* border: 5px solid #2c3e50; */
+  align-items: flex-start;
+  align-content: center;
+}
+
+.message {
+  /* border: 5px solid #eee; */
+}
+
+.clear {
+  border: 5px solid #2c3e50;
+  border-radius: 5px;
+  background-color: #34495e;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  color: #ffffff;
+  width: 10em;
+  height: 2em;
+}
+
+.clear:hover {
+  background-color: #CFD8DC;
+}

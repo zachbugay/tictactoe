@@ -12,6 +12,9 @@ import { CellService } from '../cell.service';
 export class BoardComponent implements OnInit {
 
   cells: Cell[];
+  player_one: string = 'Zach';
+  player_two: string = 'Patrick';
+  player_one_turn: Boolean = true;
 
   constructor(private cellService: CellService,
               private messageService: MessageService) { }
@@ -20,10 +23,19 @@ export class BoardComponent implements OnInit {
     this.getCells();
   }
 
+  private log (message: string): void {
+    this.messageService.add(`BoardComponent: ${message}`);
+  }
+
   getCells(): void {
-    this.messageService.add("BoardComponent: fetching cells.");
+    this.log('fetching cells.');
     this.cellService.getCells()
       .subscribe(cells => this.cells = cells);
-    this.messageService.add("BoardComponent: fetch completed.");
+    this.log('fetch completed.');
+  }
+
+  playerTurn(): void {
+    this.player_one_turn ? this.player_one_turn = false : this.player_one_turn = true;
+
   }
 }
