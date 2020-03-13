@@ -1,5 +1,6 @@
-<div class="board">
+<div class='board'>
   <app-cell *ngFor='let cell of cells'
     [cell]='cell'
+    (cellEvent)='cellClicked($event)'
   ></app-cell>
 </div>

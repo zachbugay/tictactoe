@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit,
+         Input, Output, EventEmitter  } from '@angular/core';
 import { MessageService } from '../message.service';
 
 import { Cell } from '../cell';
@@ -12,7 +13,10 @@ export class CellComponent implements OnInit {
 
   @Input() cell: Cell;
 
+  @Output() cellEvent = new EventEmitter<Cell>();
+
   constructor(private messageService: MessageService) {
+
   }
 
   ngOnInit(): void {
@@ -20,11 +24,8 @@ export class CellComponent implements OnInit {
   }
 
   handleClick(): void {
-    this.messageService.add('a cell was clicked!');
-    if (this.cell.value == 'X') {
-      this.cell.value = 'O';
-    } else {
-      this.cell.value = 'X';
-    }
+    // Alert the board which cell was clicked.
+    this.messageService.add(`CellService: cell id: ${this.cell.id} clicked.`)
+    this.cellEvent.emit(this.cell);
   }
 }
