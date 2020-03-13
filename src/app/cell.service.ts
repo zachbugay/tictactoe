@@ -21,7 +21,7 @@ export class CellService {
   private checkWinner(cells: Cell[], player: Player): void {
     this.log('check winner');
     let playerCells: Cell[] = cells.filter(c => {
-      if (c.player !== undefined) {
+      if (c.player !== null) {
         return c.player.id === player.id
       } else {
         return false;

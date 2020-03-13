@@ -43,14 +43,6 @@ export class BoardComponent implements OnInit {
 
   cellClicked(cell: Cell): void {
     this.log(`cell id: ${cell.id} was clicked!`);
-
-    // Do not call service if the cell was already clicked.
-    let checkCell: Cell = this.cells.filter(c => c.id === cell.id)[0];
-    this.log(`checkCellid: ${checkCell.id} value: ${checkCell.value}`);
-    if (checkCell.value !== '-'){
-      return;
-    }
-
     let clicker: Player = this.player_one;
     this.log(`Player1 turn? ${this.player_one_turn}`);
     if (this.player_one_turn) {
