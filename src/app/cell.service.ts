@@ -12,29 +12,58 @@ import { MessageService } from './message.service';
 export class CellService {
 
   private winningValues = [6, 15, 23, 12, 18];
+  private winningCells = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [1, 5, 9],
+    [3, 5, 7],
+    [1, 4, 7],
+    [3, 6, 9],
+    [2, 5, 8]
+  ];
   constructor(private messageService: MessageService) { }
 
   private log(message: string): void {
     this.messageService.add(`CellService: ${message}`);
   }
 
-  private checkWinner(cells: Cell[], player: Player): void {
-    this.log('check winner');
+  private arrayContainsArray(superset, subset): boolean {
+    if (superset.length === 0 || superset.length < subset.length) {
+      return false;
+    }
+    let result = true;
+    subset.forEach(id => {
+      if (superset.indexOf(id) === -1) result = false;
+    })
+    return result;
+  }
+
+  private checkPlayerWon(cells: Cell[], player: Player): boolean {
+    this.log(`Check if player ${player.id} won.`);
     let playerCells: Cell[] = cells.filter(c => {
       if (c.player !== null) {
         return c.player.id === player.id
       } else {
         return false;
       }
-    });
-    this.log(`Number in filtered cells: ${playerCells.length}`);
-    let playerValue: number = playerCells.map(cell => cell.id)
-      .reduce((total, id) => total + id);
-    this.log(`${player.name} value is: ${playerValue}`);
-    if (this.winningValues.includes(playerValue)) {
-        this.log(`We have a winner! Winner is: ${player.id}: ${player.name}`);
+    })
+
+    let playerCellIds = playerCells.map(cell => cell.id);
+    let won = false;
+    for (let i = 0; i < this.winningCells.length; i++) {
+      won = this.arrayContainsArray(playerCellIds, this.winningCells[i]);
+      if (won) break;
+    }
+    if (won) {
+      this.log(`Player ${player.id}, ${player.name}, IS THE WINNER!`);
+      window.alert(`Player ${player.id}, ${player.name}, IS THE WINNER!`);
+      return true;
+    } else {
+      return false;
     }
   }
+
   getCells(): Observable<Cell[]> {
     this.log('fetched cells.');
     return of(CELLS);
@@ -47,11 +76,19 @@ export class CellService {
           this.log(`updating cell: ${c.id}`);
           c.player = clicker;
           c.value = clicker.value;
+          c.clickable = false;
         }
       }
       return c;
     });
-    this.checkWinner(newCells, clicker);
-    return of(newCells);
+    let won = this.checkPlayerWon(newCells, clicker);
+    if (won) {
+      return of(newCells.map(c => {
+        c.clickable = false;
+        return c;
+      }));
+    } else {
+      return of(newCells);
+    }
   }
 }

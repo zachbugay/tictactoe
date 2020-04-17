@@ -25,3 +25,7 @@ button:hover {
   cursor: pointer;
   background-color: #cfd8dc;
 }
+
+button:disabled {
+  cursor: auto;
+}
