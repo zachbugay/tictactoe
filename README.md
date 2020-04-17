@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `npm install` to download the necessary packages. You may have to install `ng` globally.
+Run `npm install` to download the necessary packages. You may have to install `@angular/cli` globally.
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 
