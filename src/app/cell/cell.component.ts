@@ -24,10 +24,6 @@ export class CellComponent implements OnInit {
   }
 
   handleClick(): void {
-    // If not previously clicked...
-    if (this.cell.player !== null) {
-      return;
-    }
     // Alert the board which cell was clicked.
     this.messageService.add(`CellService: cell id: ${this.cell.id} clicked.`)
     this.cellEvent.emit(this.cell);
